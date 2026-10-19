@@ -1,0 +1,109 @@
+# ChopNow CI: every push and pull request. Deploys are a separate, manual step (docs/DEPLOYMENT.md).
+# No repository secrets are needed: test credentials are generated per run and everything uses
+# the mock payment provider against throwaway databases.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: 22.13.1
+
+jobs:
+  checks:
+    name: Typecheck, unit tests, dependency audit
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - run: npm run build:packages
+      - run: npm run typecheck
+      - run: npm test
+      # Gate on critical advisories in production dependencies. High/moderate ones are reviewed and
+      # recorded in docs/SECURITY.md §2d (all in build/test tooling at the time of writing).
+      - run: npm audit --omit=dev --audit-level=critical
+
+  database:
+    name: Integration and browser end-to-end
+    runs-on: ubuntu-24.04
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_USER: chopnow
+          POSTGRES_PASSWORD: ci_only_password
+          POSTGRES_DB: chopnow_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U chopnow" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL_TEST: postgresql://chopnow:ci_only_password@localhost:5432/chopnow_test?schema=public
+      E2E_DATABASE_URL: postgresql://chopnow:ci_only_password@localhost:5432/chopnow_e2e?schema=public
+      APP_ENV: test
+      # The runner image ships Google Chrome; Playwright drives it without downloading a browser.
+      E2E_BROWSER_CHANNEL: chrome
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - name: Per-run secret (never stored)
+        run: echo "JWT_ACCESS_SECRET=$(openssl rand -base64 48 | tr -d '\n=')" >> "$GITHUB_ENV"
+      - name: Create the e2e database
+        run: PGPASSWORD=ci_only_password psql -h localhost -U chopnow -d chopnow_test -c "CREATE DATABASE chopnow_e2e"
+      - run: npm run test:integration
+      - run: npm run test:e2e
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            tests/e2e/playwright-report
+            tests/e2e/test-results
+          retention-days: 7
+
+  images:
+    name: Build container images
+    runs-on: ubuntu-24.04
+    needs: [checks]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: API (runtime and migrate targets)
+        run: |
+          docker build -f deploy/api.Dockerfile --target runtime --build-arg RELEASE=${GITHUB_SHA::12} -t chopnow-api:${GITHUB_SHA::12} .
+          docker build -f deploy/api.Dockerfile --target migrate -t chopnow-api-migrate:${GITHUB_SHA::12} .
+      - name: Vendor and admin portals (example API URL; real builds pass the environment's URL)
+        run: |
+          docker build -f deploy/web.Dockerfile --build-arg APP=vendor-web --build-arg API_BASE_URL=https://api.staging.chopnow.example -t chopnow-vendor:${GITHUB_SHA::12} .
+          docker build -f deploy/web.Dockerfile --build-arg APP=admin-web --build-arg API_BASE_URL=https://api.staging.chopnow.example -t chopnow-admin:${GITHUB_SHA::12} .
+      - name: Image smoke test (API refuses to start without configuration, then serves /health)
+        run: |
+          ! docker run --rm chopnow-api:${GITHUB_SHA::12} 2>/dev/null
+          docker run -d --name api -p 4000:4000 \
+            -e APP_ENV=test -e DATABASE_URL=postgresql://u:p@127.0.0.1:5432/none \
+            -e JWT_ACCESS_SECRET=$(openssl rand -hex 32) chopnow-api:${GITHUB_SHA::12}
+          for i in $(seq 1 30); do curl -fsS localhost:4000/health && break; sleep 1; done
+          curl -fsS localhost:4000/health
+          docker rm -f api
+      # Pushing to a registry is environment-specific; add it here once a registry is chosen
+      # (docs/DEPLOYMENT.md §2).

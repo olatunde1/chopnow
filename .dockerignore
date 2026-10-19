@@ -1,0 +1,20 @@
+# Keep the build context small and secret-free.
+**/node_modules
+**/dist
+**/.expo
+**/web-build
+**/.build
+**/test-results
+**/playwright-report
+**/*.log
+**/*.tsbuildinfo
+services/api/src/generated
+services/api/storage
+.env
+.env.*
+**/.env
+**/.env.*
+!**/.env.example
+.git
+.vscode
+.idea

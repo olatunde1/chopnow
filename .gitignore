@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+
+# Builds
+dist/
+build/
+.expo/
+web-build/
+*.tsbuildinfo
+
+# Environment — never commit real secrets
+.env
+.env.*
+!.env.example
+
+# Generated Prisma client (rebuilt by `npm run db:generate`)
+services/api/src/generated/
+
+# Local uploads (dev storage adapter)
+services/api/storage/
+
+# Logs / OS / editor
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Test output
+coverage/
+
+# Browser end-to-end tests (tests/e2e)
+tests/e2e/.build/
+tests/e2e/test-results/
+tests/e2e/playwright-report/

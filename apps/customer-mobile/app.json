@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "ChopNow",
+    "slug": "chopnow-customer",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "chopnow",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#FFF8EF",
+    "ios": {
+      "bundleIdentifier": "app.chopnow.customer",
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "ChopNow uses your location to show restaurants that can deliver to you."
+      }
+    },
+    "android": {
+      "package": "app.chopnow.customer",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
+    },
+    "web": {
+      "output": "single",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "ChopNow uses your location to show restaurants that can deliver to you."
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FFF8EF"
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#C2410C"
+        }
+      ]
+    ]
+  }
+}

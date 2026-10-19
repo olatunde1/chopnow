@@ -1,0 +1,16 @@
+# Optional local PostgreSQL for development. Use this OR a native PostgreSQL install (see README).
+# Credentials here are local-development values only.
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: chopnow
+      POSTGRES_PASSWORD: chopnow_dev_password
+      POSTGRES_DB: chopnow_dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - chopnow_pg:/var/lib/postgresql/data
+      - ./database/init:/docker-entrypoint-initdb.d:ro
+volumes:
+  chopnow_pg:

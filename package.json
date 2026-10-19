@@ -1,0 +1,43 @@
+{
+  "name": "chopnow",
+  "private": true,
+  "description": "ChopNow — community food ordering and delivery marketplace (MVP monorepo)",
+  "engines": {
+    "node": ">=22.13.0",
+    "npm": ">=10"
+  },
+  "workspaces": [
+    "packages/*",
+    "services/*",
+    "apps/customer-mobile",
+    "apps/rider-mobile",
+    "apps/vendor-web",
+    "apps/admin-web",
+    "tests/*"
+  ],
+  "overrides": {
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "devDependencies": {
+    "jsdom": "29.1.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3"
+  },
+  "scripts": {
+    "build:packages": "npm run build -w @chopnow/shared-utils -w @chopnow/shared-schemas",
+    "build": "npm run build:packages && npm run build -w @chopnow/api",
+    "dev:api": "npm run dev -w @chopnow/api",
+    "dev:customer": "npm run build:packages && npm run start -w @chopnow/customer-mobile",
+    "dev:vendor": "npm run build:packages && npm run dev -w @chopnow/vendor-web",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run build:packages && npm run test --workspaces --if-present",
+    "test:integration": "npm run build:packages && npm run test:integration -w @chopnow/api",
+    "db:migrate": "npm run db:migrate -w @chopnow/api",
+    "db:seed": "npm run db:seed -w @chopnow/api",
+    "dev:rider": "npm run build:packages && npm run start -w @chopnow/rider-mobile",
+    "dev:admin": "npm run build:packages && npm run dev -w @chopnow/admin-web",
+    "test:e2e": "npm run build:packages && npm run build -w @chopnow/e2e && npm run e2e -w @chopnow/e2e",
+    "test:load": "npm run load -w @chopnow/load"
+  }
+}

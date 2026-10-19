@@ -1,0 +1,51 @@
+{
+  "expo": {
+    "name": "ChopNow Rider",
+    "slug": "chopnow-rider",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "chopnow-rider",
+    "userInterfaceStyle": "light",
+    "backgroundColor": "#FFF8EF",
+    "ios": {
+      "bundleIdentifier": "app.chopnow.rider",
+      "supportsTablet": false,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "ChopNow Rider uses your location while you are online to offer you nearby deliveries."
+      }
+    },
+    "android": {
+      "package": "app.chopnow.rider",
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ]
+    },
+    "web": {
+      "output": "single",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "ChopNow Rider uses your location while you are online to offer you nearby deliveries."
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FFF8EF"
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#C2410C"
+        }
+      ]
+    ]
+  }
+}
