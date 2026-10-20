@@ -13,6 +13,7 @@
     "apps/rider-mobile",
     "apps/vendor-web",
     "apps/admin-web",
+    "apps/website",
     "tests/*"
   ],
   "overrides": {
@@ -38,6 +39,7 @@
     "dev:rider": "npm run build:packages && npm run start -w @chopnow/rider-mobile",
     "dev:admin": "npm run build:packages && npm run dev -w @chopnow/admin-web",
     "test:e2e": "npm run build:packages && npm run build -w @chopnow/e2e && npm run e2e -w @chopnow/e2e",
-    "test:load": "npm run load -w @chopnow/load"
+    "test:load": "npm run load -w @chopnow/load",
+    "dev:website": "npm run dev -w @chopnow/website"
   }
 }

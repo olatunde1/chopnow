@@ -15,6 +15,7 @@ const ignored = [
   'services/api/storage',
   'apps/vendor-web/dist',
   'apps/admin-web/dist',
+  'apps/website/dist',
 ].map((dir) => new RegExp(`^${[...root.split(/[\\/]/), ...dir.split('/')].map(escape).join(SEP)}(${SEP}.*)?$`));
 
 const existing = config.resolver.blockList;
