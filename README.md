@@ -87,6 +87,7 @@ The API serves live updates at `ws://<api>/v1/realtime` (the apps connect automa
 | `npm run dev:rider` | Build shared packages and start the rider app (Expo) |
 | `npm run dev:admin` | Build shared packages and start the admin dashboard (Vite) on http://localhost:5174 |
 | `npm run dev:vendor` | Build shared packages and start the vendor portal (Vite) on http://localhost:5173 |
+| `npm run dev:website` | Start the public website (Vite) on http://localhost:5175. Its text, links, team and FAQs live in `apps/website/src/content/site.js`; store links and portal URLs come from `apps/website/.env` (see `.env.example`) |
 | `npm test` | Unit tests for every workspace, including the customer app's Jest suite (no database needed) |
 | `npm run test:integration` | API integration tests against `DATABASE_URL_TEST` (real Postgres; truncates it) |
 | `npm run test:e2e` | Browser end-to-end: builds the four web apps, starts an API on the e2e database (port 4100, mock payments), and drives the full ordering journey in an installed Edge or Chrome with accessibility checks. See docs/TEST_PLAN.md |
