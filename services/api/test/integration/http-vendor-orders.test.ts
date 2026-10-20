@@ -62,7 +62,7 @@ describe('what the restaurant can see', () => {
     expect(seen).toMatchObject({ status: 'PLACED', customerFirstName: 'Ada', customerNote: 'Extra pepper please', actions: ['accept', 'reject'], subtotalKobo: 350_000, commissionKobo: 52_500, estimatedEarningsKobo: 297_500 });
     const raw = JSON.stringify(seen);
     expectNoPin(raw, order.deliveryPin);
-    expect(raw).not.toMatch(/Akoka|\+234|chopnow\.test|deliveryPin|address/i);
+    expect(raw).not.toMatch(/Sabo Road|\+234|chopnow\.test|deliveryPin|address/i);
   });
 
   it('unpaid online orders are invisible to the restaurant until paid', async () => {

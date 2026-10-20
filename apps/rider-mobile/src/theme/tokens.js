@@ -1,29 +1,31 @@
 /**
- * ChopNow design tokens. Deep orange primary, warm cream surfaces, charcoal text.
+ * ChopNow design tokens. Deep teal actions (#046485), warm off-white background (#F6F2E9),
+ * dark green-teal text (#103C38).
  * Every text/background pair used meets WCAG AA (≥4.5:1) for body text (computed):
- *   text/cream 16.4 · textMuted/cream 6.8 · textMuted/surfaceMuted 6.3 · white/primary 5.2 · primary/cream 4.9
- *   primaryDark/primarySoft 6.4 · success 4.6 · warning 4.5 · danger 5.3 · info 5.5 (each on its *Soft background)
+ *   text/cream 10.9 · text/surface 12.2 · textMuted/cream 5.9 · textMuted/surfaceMuted 5.3
+ *   white/primary 6.6 · primary/cream 5.9 · primaryDark/primarySoft 8.1
+ *   success 5.2 · warning 5.4 · danger 5.8 · info 6.0 on cream (and ≥4.6 on surfaceMuted)
  */
 export const colors = {
-  primary: '#C2410C', // deep orange (orange-700)
-  primaryDark: '#9A3412',
-  primarySoft: '#FFEDD5',
-  cream: '#FFF8EF',
+  primary: '#046485', // deep teal: buttons and actions
+  primaryDark: '#034A63',
+  primarySoft: '#DCEEF3',
+  cream: '#F6F2E9', // app background
   surface: '#FFFFFF',
-  surfaceMuted: '#F6EFE6',
-  border: '#E8DDD0',
-  text: '#1F1A17', // charcoal
-  textMuted: '#5F5650',
+  surfaceMuted: '#ECE6D9',
+  border: '#DCD3C1',
+  text: '#103C38', // dark green-teal
+  textMuted: '#4A615E',
   textInverse: '#FFFFFF',
-  success: '#15803D',
+  success: '#137538',
   successSoft: '#DCFCE7',
-  warning: '#B45309',
+  warning: '#A14A07',
   warningSoft: '#FEF3C7',
   danger: '#B91C1C',
   dangerSoft: '#FEE2E2',
   info: '#1D4ED8',
   infoSoft: '#DBEAFE',
-  overlay: 'rgba(31, 26, 23, 0.45)',
+  overlay: 'rgba(16, 60, 56, 0.45)',
 };
 
 export const spacing = { xxs: 2, xs: 4, sm: 8, md: 12, lg: 16, xl: 24, xxl: 32 };
@@ -45,7 +47,7 @@ export const touchTarget = 48;
 
 export const shadow = {
   card: {
-    shadowColor: '#3B2A1A',
+    shadowColor: '#103C38',
     shadowOpacity: 0.08,
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 3 },

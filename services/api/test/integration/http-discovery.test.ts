@@ -5,7 +5,7 @@
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createTestDb } from './helpers.js';
-import { ABUJA, LAGOS_3AM, YABA, bearer, buildTestApp, freshSeed, tokenFor } from './http-helpers.js';
+import { ABUJA, LAGOS_3AM, ADA_HOME, bearer, buildTestApp, freshSeed, tokenFor } from './http-helpers.js';
 
 const db = createTestDb();
 const app = buildTestApp(db);
@@ -19,7 +19,7 @@ const searchFood = (q: Record<string, string | number>) => request(app).get('/v1
 
 describe('food-first search', () => {
   it('finds jollof rice at eligible restaurants only, with prices and delivery fees', async () => {
-    const res = await searchFood({ q: 'jollof rice', lat: YABA.lat, lng: YABA.lng });
+    const res = await searchFood({ q: 'jollof rice', lat: ADA_HOME.lat, lng: ADA_HOME.lng });
     expect(res.status).toBe(200);
     const hits = res.body.items as FoodHit[];
     const slugs = new Set(hits.map((h) => h.restaurant.slug));
@@ -78,14 +78,14 @@ describe('food-first search', () => {
 
   it('validates the query', async () => {
     expect((await searchFood({ q: 'j' })).status).toBe(400);
-    expect((await searchFood({ q: 'jollof', lat: YABA.lat })).status).toBe(400);
+    expect((await searchFood({ q: 'jollof', lat: ADA_HOME.lat })).status).toBe(400);
     expect((await searchFood({ q: 'jollof', minPriceKobo: 5, maxPriceKobo: 1 })).status).toBe(400);
   });
 });
 
 describe('restaurant-first browsing', () => {
   it('lists accepting restaurants near the customer with distance and fee', async () => {
-    const res = await request(app).get('/v1/restaurants').query({ lat: YABA.lat, lng: YABA.lng, sort: 'distance' });
+    const res = await request(app).get('/v1/restaurants').query({ lat: ADA_HOME.lat, lng: ADA_HOME.lng, sort: 'distance' });
     expect(res.status).toBe(200);
     expect(res.body.items.map((r: { slug: string }) => r.slug)).toEqual(['mama-nkechis-kitchen', 'bukka-republic']);
     expect(res.body.items[0]).toMatchObject({ isAcceptingOrders: true, deliversToLocation: true, deliveryFeeKobo: 50_000 });
@@ -97,7 +97,7 @@ describe('restaurant-first browsing', () => {
   });
 
   it('shows a restaurant with its menu; sold-out items are flagged; pending restaurants 404', async () => {
-    const res = await request(app).get('/v1/restaurants/mama-nkechis-kitchen').query({ lat: YABA.lat, lng: YABA.lng });
+    const res = await request(app).get('/v1/restaurants/mama-nkechis-kitchen').query({ lat: ADA_HOME.lat, lng: ADA_HOME.lng });
     expect(res.status).toBe(200);
     const items = res.body.menu.categories.flatMap((c: { items: unknown[] }) => c.items) as { name: string; isAvailable: boolean; variants: unknown[]; extras: unknown[] }[];
     expect(items.find((i) => i.name === 'Jollof Rice')).toMatchObject({ isAvailable: true });

@@ -8,7 +8,7 @@ import { getDeviceCoordinates } from '../lib/device-location';
 import { useAddresses } from '../lib/hooks';
 import { goBack } from '../lib/navigation';
 import { useAuth } from '../state/auth';
-import { useDeliveryLocation } from '../state/location';
+import { pilotAreaLocation, useDeliveryLocation } from '../state/location';
 import { colors, radius, spacing, touchTarget } from '../theme/tokens';
 
 function Option({ icon, title, subtitle, selected, onPress, testID }) {
@@ -98,7 +98,7 @@ export default function LocationScreen() {
           title={PILOT_AREA.label}
           subtitle="Approximate. Use your exact address when you order."
           selected={location?.source === 'area'}
-          onPress={() => choose({ latitude: PILOT_AREA.latitude, longitude: PILOT_AREA.longitude, label: PILOT_AREA.label, source: 'area' })}
+          onPress={() => choose(pilotAreaLocation())}
         />
       </View>
     </ScrollView>

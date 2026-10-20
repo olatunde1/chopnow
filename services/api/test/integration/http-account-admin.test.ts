@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createTestDb } from './helpers.js';
-import { YABA, bearer, buildTestApp, freshSeed, tokenFor } from './http-helpers.js';
+import { ADA_HOME, bearer, buildTestApp, freshSeed, tokenFor } from './http-helpers.js';
 
 const db = createTestDb();
 const app = buildTestApp(db);
@@ -56,13 +56,13 @@ describe('profile and addresses', () => {
   it('manages addresses: coordinates required, first becomes default, default moves, delete is soft', async () => {
     const reg = await request(app).post('/v1/auth/register').send({ email: 'addr@example.com', password: 'suya12345', fullName: 'Addy Test' });
     const t = reg.body.accessToken;
-    const noCoords = await request(app).post('/v1/me/addresses').set(bearer(t)).send({ label: 'Home', line1: '1 Road', area: 'Yaba', city: 'Lagos' });
+    const noCoords = await request(app).post('/v1/me/addresses').set(bearer(t)).send({ label: 'Home', line1: '1 Road', area: 'Makun', city: 'Sagamu' });
     expect(noCoords.status).toBe(400);
 
-    const a = await request(app).post('/v1/me/addresses').set(bearer(t)).send({ label: 'Home', line1: '1 Akoka Road', area: 'Yaba', city: 'Lagos', latitude: YABA.lat, longitude: YABA.lng });
+    const a = await request(app).post('/v1/me/addresses').set(bearer(t)).send({ label: 'Home', line1: '1 Sabo Road', area: 'Makun', city: 'Sagamu', latitude: ADA_HOME.lat, longitude: ADA_HOME.lng });
     expect(a.status).toBe(201);
     expect(a.body.isDefault).toBe(true);
-    const b = await request(app).post('/v1/me/addresses').set(bearer(t)).send({ label: 'Work', line1: '2 Herbert Macaulay', area: 'Yaba', city: 'Lagos', latitude: 6.51, longitude: 3.37, makeDefault: true });
+    const b = await request(app).post('/v1/me/addresses').set(bearer(t)).send({ label: 'Work', line1: '2 Akarigbo Street', area: 'Makun', city: 'Sagamu', latitude: 6.84, longitude: 3.65, makeDefault: true });
     expect(b.body.isDefault).toBe(true);
 
     const list = await request(app).get('/v1/me/addresses').set(bearer(t));

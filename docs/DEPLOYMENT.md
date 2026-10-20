@@ -28,7 +28,7 @@ For a small pilot, `PROCESS_ROLE=all` on a single API container is also valid: o
 
 ### Defaults chosen *(confirm)*
 - **Hosting:** vendor-neutral containers (any of Render, Fly.io, Railway, AWS ECS/Fargate, Google Cloud Run with min-instances ≥ 1, or a VM with Docker). The worker must not scale to zero.
-- **Region:** the nearest available to Lagos (e.g. AWS `af-south-1` Cape Town or `eu-west-2` London). Keep the database, API and storage in the same region.
+- **Region:** the nearest available to south-west Nigeria, where the pilot runs (Sagamu, Ogun State), e.g. AWS `af-south-1` Cape Town or `eu-west-2` London. Keep the database, API and storage in the same region.
 - **Domains:** `api.`, `vendor.`, `admin.` and `media.` subdomains. The templates use `chopnow.example` as a stand-in.
 - **Android first:** iOS needs an Apple developer account and isn't in the pilot scope.
 

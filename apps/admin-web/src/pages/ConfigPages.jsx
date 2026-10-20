@@ -72,8 +72,8 @@ function PromotionForm({ onClose }) {
           <option value="PLATFORM">ChopNow</option>
           <option value="RESTAURANT">The restaurant</option>
         </Select>
-        <Input label="Starts (Lagos date)" type="date" value={f.starts} onChange={set('starts')} error={errors.startsAt} />
-        <Input label="Ends (Lagos date, inclusive)" type="date" value={f.ends} onChange={set('ends')} error={errors.endsAt ?? errors.ends} />
+        <Input label="Starts (Nigeria date)" type="date" value={f.starts} onChange={set('starts')} error={errors.startsAt} />
+        <Input label="Ends (Nigeria date, inclusive)" type="date" value={f.ends} onChange={set('ends')} error={errors.endsAt ?? errors.ends} />
         <Input label="Total uses (optional)" type="number" min={1} value={f.usageLimit} onChange={set('usageLimit')} error={errors.usageLimit} />
         <Input label="Uses per customer" type="number" min={1} max={100} value={f.perCustomerLimit} onChange={set('perCustomerLimit')} error={errors.perCustomerLimit} />
       </div>

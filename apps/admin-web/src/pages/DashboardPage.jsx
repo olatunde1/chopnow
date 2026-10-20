@@ -36,7 +36,7 @@ export function DashboardPage() {
 
   return (
     <>
-      <PageHeader title="Dashboard" description="Refreshes every 15 seconds. Lagos time." />
+      <PageHeader title="Dashboard" description="Refreshes every 15 seconds. Nigeria time (WAT)." />
       <h2 className="mb-3 text-lg font-bold">Needs attention now</h2>
       <div className="mb-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Tile label="Delivery problems" value={live.exceptions} tone="bad" icon={AlertTriangle} to={orders({ status: 'DELIVERY_EXCEPTION' })} />

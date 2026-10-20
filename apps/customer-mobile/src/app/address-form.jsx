@@ -14,7 +14,7 @@ import { goBack } from '../lib/navigation';
 import { useDeliveryLocation } from '../state/location';
 import { colors, radius, spacing } from '../theme/tokens';
 
-const EMPTY = { label: 'Home', line1: '', line2: '', area: 'Yaba', city: 'Lagos', landmark: '', contactPhone: '', instructions: '' };
+const EMPTY = { label: 'Home', line1: '', line2: '', area: '', city: 'Sagamu', landmark: '', contactPhone: '', instructions: '' };
 
 /**
  * Add or edit a delivery address. A map pin is required because delivery eligibility and fees are
@@ -123,7 +123,7 @@ export default function AddressFormScreen() {
         </View>
 
         <TextField label="Label" value={form.label} onChangeText={set('label')} error={errors.label} placeholder="Home, Work…" />
-        <TextField label="Street address" value={form.line1} onChangeText={set('line1')} error={errors.line1} placeholder="12 Akoka Road" testID="line1" />
+        <TextField label="Street address" value={form.line1} onChangeText={set('line1')} error={errors.line1} placeholder="12 Sabo Road" testID="line1" />
         <TextField label="Flat, floor or building (optional)" value={form.line2} onChangeText={set('line2')} error={errors.line2} />
         <View style={styles.twoCol}>
           <TextField label="Area" value={form.area} onChangeText={set('area')} error={errors.area} style={{ flex: 1 }} />

@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "scheme": "chopnow-rider",
     "userInterfaceStyle": "light",
-    "backgroundColor": "#FFF8EF",
+    "backgroundColor": "#F6F2E9",
     "ios": {
       "bundleIdentifier": "app.chopnow.rider",
       "supportsTablet": false,
@@ -37,13 +37,13 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#FFF8EF"
+          "backgroundColor": "#F6F2E9"
         }
       ],
       [
         "expo-notifications",
         {
-          "color": "#C2410C"
+          "color": "#046485"
         }
       ]
     ]

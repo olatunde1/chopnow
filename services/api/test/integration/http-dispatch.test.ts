@@ -122,7 +122,7 @@ describe('offers', () => {
     expect(d.cashCollection).toMatchObject({ amountDueKobo: o.total, status: 'PENDING', reconciliationStatus: 'NOT_DUE' });
 
     const offer = (await work('rider.core1')).body.offer;
-    expect(offer).toMatchObject({ deliveryId: o.deliveryId, orderCode: o.code, dropoffArea: 'Yaba', cashToCollectKobo: o.total, earningKobo: 40_000 });
+    expect(offer).toMatchObject({ deliveryId: o.deliveryId, orderCode: o.code, dropoffArea: 'Makun', cashToCollectKobo: o.total, earningKobo: 40_000 });
     expect(offer.distanceToRestaurantMeters).toBeGreaterThan(200);
     expect(Date.parse(offer.expiresAt) - t).toBe(45_000);
     const raw = JSON.stringify(offer);
@@ -263,7 +263,7 @@ describe('a cash delivery from offer to doorstep', () => {
     const res = await accept('rider.core1', offer.id);
     expect(res.status).toBe(200);
     expect(res.body).toMatchObject({ status: 'ASSIGNED', orderCode: o.code, cashToCollectKobo: o.total, foodReady: false, actions: ['arrived', 'picked_up', 'release'] });
-    expect(res.body.dropoff).toMatchObject({ customerFirstName: 'Ada', area: 'Yaba' });
+    expect(res.body.dropoff).toMatchObject({ customerFirstName: 'Ada', area: 'Makun' });
     expect(res.body.dropoff.line1).toBeTruthy();
     expectNoPin(res.body, o.pin);
 
@@ -343,7 +343,7 @@ describe('a cash delivery from offer to doorstep', () => {
 
     const history = await request(app).get('/v1/rider/deliveries').set(bearer(tok['rider.core1']!));
     const item = history.body.items.find((d: { id: string }) => d.id === o.deliveryId);
-    expect(item).toMatchObject({ status: 'DELIVERED', dropoffArea: 'Yaba', cashCollectedKobo: o.total, earningKobo: 40_000 });
+    expect(item).toMatchObject({ status: 'DELIVERED', dropoffArea: 'Makun', cashCollectedKobo: o.total, earningKobo: 40_000 });
     expect(JSON.stringify(history.body)).not.toMatch(/line1|contactPhone/);
 
     const day = new Date(t + 3_600_000).toISOString().slice(0, 10);

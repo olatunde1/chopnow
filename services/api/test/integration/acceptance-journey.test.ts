@@ -7,7 +7,7 @@ import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { MockPaymentProvider } from '../../src/modules/payments/mock.js';
 import { createTestDb } from './helpers.js';
-import { LAGOS_NOON, YABA, bearer, buildTestHarness, freshSeed, tokenFor } from './http-helpers.js';
+import { LAGOS_NOON, ADA_HOME, bearer, buildTestHarness, freshSeed, tokenFor } from './http-helpers.js';
 
 const db = createTestDb();
 let t = LAGOS_NOON.getTime();
@@ -34,7 +34,7 @@ describe('setting up a new restaurant', () => {
     expect(owner.status).toBe(201);
     tok.owner = owner.body.accessToken;
     const r = await request(app).post('/v1/vendor/restaurants').set(as('owner')).send({
-      name: 'Bole & Jollof Joint', description: 'Party jollof, bole and fish.', phone: '08061114444', addressLine: '9 Commercial Avenue', area: 'Yaba', city: 'Lagos', latitude: 6.5139, longitude: 3.3718, prepTimeMinutes: 20,
+      name: 'Bole & Jollof Joint', description: 'Party jollof, bole and fish.', phone: '08061114444', addressLine: '9 Market Road', area: 'Makun', city: 'Sagamu', latitude: 6.8444, longitude: 3.6477, prepTimeMinutes: 20,
     });
     expect(r.body.verificationStatus).toBe('PENDING');
     ctx.restaurantId = r.body.id;
@@ -65,12 +65,12 @@ describe.each([['ONLINE'], ['CASH_ON_DELIVERY']] as const)('a customer orders, p
 
   it('3. the customer opens the app (browsing needs no account)', async () => {
     expect((await request(app).get('/v1/food-categories')).status).toBe(200);
-    const nearby = await request(app).get('/v1/restaurants').query({ lat: YABA.lat, lng: YABA.lng });
+    const nearby = await request(app).get('/v1/restaurants').query({ lat: ADA_HOME.lat, lng: ADA_HOME.lng });
     expect(nearby.body.items.map((r: { slug: string }) => r.slug)).toContain(ctx.slug);
   });
 
   it('4–5. searches for jollof rice and sees eligible restaurants and their available meals', async () => {
-    const res = await request(app).get('/v1/search/food').query({ q: 'jollof rice', lat: YABA.lat, lng: YABA.lng });
+    const res = await request(app).get('/v1/search/food').query({ q: 'jollof rice', lat: ADA_HOME.lat, lng: ADA_HOME.lng });
     const hit = res.body.items.find((h: { restaurant: { slug: string } }) => h.restaurant.slug === ctx.slug);
     expect(hit).toMatchObject({ orderable: true, item: { name: 'Smoky Party Jollof Rice', fromPriceKobo: 280_000, isAvailable: true } });
     expect(hit.restaurant.deliveryFeeKobo).toBe(50_000);
@@ -80,7 +80,7 @@ describe.each([['ONLINE'], ['CASH_ON_DELIVERY']] as const)('a customer orders, p
   it('6–8. selects and customises the meal, has a cart, and enters a delivery address', async () => {
     const reg = await request(app).post('/v1/auth/register').send({ email: `${name.toLowerCase()}@journey.test`, password: 'hungry2026', fullName: `Journey ${method}`, role: 'CUSTOMER' });
     tok[name] = reg.body.accessToken;
-    const addr = await request(app).post('/v1/me/addresses').set(as(name)).send({ label: 'Home', line1: '14 Akoka Road', area: 'Yaba', city: 'Lagos', latitude: YABA.lat, longitude: YABA.lng, landmark: 'Opposite the pharmacy' });
+    const addr = await request(app).post('/v1/me/addresses').set(as(name)).send({ label: 'Home', line1: '14 Sabo Road', area: 'Makun', city: 'Sagamu', latitude: ADA_HOME.lat, longitude: ADA_HOME.lng, landmark: 'Opposite the pharmacy' });
     expect(addr.status).toBe(201);
     ctx.addressId = addr.body.id;
   });

@@ -291,7 +291,7 @@ export function SettlementsPage() {
         <Card className="mb-5">
           <h2 className="mb-3 text-lg font-bold">Create settlements</h2>
           <div className="flex flex-wrap items-end gap-3">
-            <Input label="From (Lagos date)" type="date" value={period.from} max={yesterday} onChange={(e) => setPeriod({ ...period, from: e.target.value })} />
+            <Input label="From (Nigeria date)" type="date" value={period.from} max={yesterday} onChange={(e) => setPeriod({ ...period, from: e.target.value })} />
             <Input label="To (inclusive)" type="date" value={period.to} max={yesterday} onChange={(e) => setPeriod({ ...period, to: e.target.value })} />
             <Button onClick={generate} loading={busy}>Create drafts</Button>
           </div>

@@ -270,7 +270,7 @@ Every step is covered three ways: the HTTP journey test (`acceptance-journey.tes
 How to read these:
 - **Fan-out latency** is bounded by the change feed's 1-second poll. Every customer heard their own order's update, and nobody else's.
 - **Dispatch** offers at once on acceptance, through a kick. The 5-second sweep catches anything the kick missed.
-- **Pilot scale:** order placement at 43 orders/s is several orders of magnitude above the Lagos pilot's expected peak.
+- **Pilot scale:** order placement at 43 orders/s is several orders of magnitude above the Sagamu pilot's expected peak.
 - **Search and quote** are the slowest paths per request. Each makes about 4 database round trips, and business rules are read from the database on every call. A short in-process cache for rules is the first optimisation if staging shows a need.
 
 Problems found and fixed while building the check:

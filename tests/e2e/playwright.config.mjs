@@ -38,7 +38,8 @@ export default defineConfig({
     locale: 'en-NG',
   },
   webServer: [
-    { command: 'node start-api.mjs', url: `${url('api')}/health`, reuseExistingServer: false, timeout: 120_000, stdout: 'pipe' },
+    // Migrates and reseeds first; allow for a busy machine.
+    { command: 'node start-api.mjs', url: `${url('api')}/health`, reuseExistingServer: false, timeout: 240_000, stdout: 'pipe' },
     spa('vendor'),
     spa('admin'),
     spa('customer'),

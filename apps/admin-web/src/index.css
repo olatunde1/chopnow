@@ -1,19 +1,21 @@
 @import 'tailwindcss';
 
-/* ChopNow design tokens (same palette as the mobile apps; WCAG AA pairs). */
+/* ChopNow design tokens (same palette as the mobile apps; every text/background pair meets WCAG AA).
+   Background #f6f2e9, actions #046485, text #103c38. */
 @theme {
-  --color-brand: #c2410c;
-  --color-brand-dark: #9a3412;
-  --color-brand-soft: #ffedd5;
-  --color-cream: #fff8ef;
+  --color-brand: #046485;
+  --color-brand-dark: #034a63;
+  --color-brand-soft: #dceef3;
+  --color-brand-soft-strong: #c7e2eb;
+  --color-cream: #f6f2e9;
   --color-surface: #ffffff;
-  --color-surface-muted: #f6efe6;
-  --color-line: #e8ddd0;
-  --color-ink: #1f1a17;
-  --color-ink-muted: #5f5650;
-  --color-ok: #15803d;
+  --color-surface-muted: #ece6d9;
+  --color-line: #dcd3c1;
+  --color-ink: #103c38;
+  --color-ink-muted: #4a615e;
+  --color-ok: #137538;
   --color-ok-soft: #dcfce7;
-  --color-warn: #b45309;
+  --color-warn: #a14a07;
   --color-warn-soft: #fef3c7;
   --color-bad: #b91c1c;
   --color-bad-soft: #fee2e2;

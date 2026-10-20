@@ -126,7 +126,7 @@ export function HoursEditor({ windows, onSave }) {
           );
         })}
       </ul>
-      <p className="text-xs text-ink-muted">Times are Lagos time. Closing at 00:00 means midnight. Open past midnight? Add a window on the next day starting 00:00.</p>
+      <p className="text-xs text-ink-muted">Times are Nigeria time (WAT). Closing at 00:00 means midnight. Open past midnight? Add a window on the next day starting 00:00.</p>
       <div className="flex flex-wrap gap-2">
         <Button variant="outline" size="sm" icon={Copy} onClick={copyMondayToWeekdays} disabled={!rows.some((r) => r.dayOfWeek === 1)}>
           Copy Monday to Tue–Fri

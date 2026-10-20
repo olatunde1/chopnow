@@ -18,10 +18,10 @@ const PASSWORD =
   readFileSync(new URL('../../../services/api/src/db/seed/dev-seed.ts', import.meta.url), 'utf8').match(/DEFAULT_SEED_PASSWORD = '([^']+)'/)[1];
 const email = (who) => `${who}@chopnow.test`;
 
-// Grandma's Pot sits at the seed area centre (Yaba) offset by (-0.002, -0.005); the rider waits nearby.
-const NEAR_RESTAURANT = { latitude: 6.5076, longitude: 3.3663 };
+// Grandma's Pot sits at the seed area centre (Sagamu) offset by (-0.002, -0.005); the rider waits nearby.
+const NEAR_RESTAURANT = { latitude: 6.8381, longitude: 3.6422 };
 // The customer's new delivery address, ~0.7 km from the restaurant (under 2 km, so the ₦500 base fee).
-const NEW_ADDRESS = { latitude: 6.5135, longitude: 3.3681 };
+const NEW_ADDRESS = { latitude: 6.844, longitude: 3.644 };
 const DISH = 'Grandma’s Smoky Jollof Rice';
 const PRICE = 3200; // ₦
 const EXTRA = { name: 'Boiled egg', price: 300 };
@@ -141,14 +141,14 @@ test('a customer orders a meal and receives a completed delivery (spec §21)', a
     // Step 8: enter a new delivery address, pinned with the phone's location.
     await customer.getByRole('button', { name: 'Add a new address' }).filter({ visible: true }).click();
     await customer.getByLabel('Label', { exact: true }).filter({ visible: true }).fill('Work');
-    await customer.getByTestId('line1').filter({ visible: true }).fill('27 Herbert Macaulay Way');
-    await customer.getByLabel('Area', { exact: true }).filter({ visible: true }).fill('Yaba');
-    await customer.getByLabel('City', { exact: true }).filter({ visible: true }).fill('Lagos');
+    await customer.getByTestId('line1').filter({ visible: true }).fill('27 Akarigbo Street');
+    await customer.getByLabel('Area', { exact: true }).filter({ visible: true }).fill('Makun');
+    await customer.getByLabel('City', { exact: true }).filter({ visible: true }).fill('Sagamu');
     await customer.getByRole('button', { name: 'Use my location' }).filter({ visible: true }).click();
     await expect(customer.getByText('Map pin set').filter({ visible: true })).toBeVisible();
     await axe(customer, 'customer address form');
     await customer.getByTestId('save-address').filter({ visible: true }).click();
-    await expect(customer.getByText('27 Herbert Macaulay Way').filter({ visible: true }).first()).toBeVisible();
+    await expect(customer.getByText('27 Akarigbo Street').filter({ visible: true }).first()).toBeVisible();
 
     await customer.getByTestId('pay-cash').filter({ visible: true }).click();
     // Food ₦3,500 + delivery ₦500 + service 5% (₦175) = ₦4,175, priced by the server.

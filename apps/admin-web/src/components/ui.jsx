@@ -8,7 +8,7 @@ const cx = (...c) => c.filter(Boolean).join(' ');
 
 const BUTTON = {
   primary: 'bg-brand text-white hover:bg-brand-dark border-brand',
-  secondary: 'bg-brand-soft text-brand-dark hover:bg-orange-200 border-brand-soft',
+  secondary: 'bg-brand-soft text-brand-dark hover:bg-brand-soft-strong border-brand-soft',
   outline: 'bg-surface text-ink hover:bg-surface-muted border-line',
   ghost: 'bg-transparent text-brand hover:bg-brand-soft border-transparent',
   danger: 'bg-bad text-white hover:bg-red-800 border-bad',

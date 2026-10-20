@@ -8,5 +8,5 @@ const fallback = Platform.OS === 'android' ? 'http://10.0.2.2:4000' : 'http://lo
 
 export const API_BASE_URL = (process.env.EXPO_PUBLIC_API_BASE_URL || fallback).replace(/\/+$/, '');
 
-/** Pilot neighbourhood centre (Yaba, Lagos), offered when location permission is denied. */
-export const PILOT_AREA = { label: 'Yaba, Lagos (pilot area)', latitude: 6.5095, longitude: 3.3711 };
+/** Pilot area centre (Sagamu, Ogun State), offered when location permission is denied. */
+export const PILOT_AREA = { label: 'Sagamu, Ogun State (pilot area)', latitude: 6.84, longitude: 3.647 };

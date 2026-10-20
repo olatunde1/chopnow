@@ -5,7 +5,7 @@
 import request from 'supertest';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createTestDb } from './helpers.js';
-import { YABA, bearer, buildTestApp, freshSeed, tokenFor } from './http-helpers.js';
+import { ADA_HOME, bearer, buildTestApp, freshSeed, tokenFor } from './http-helpers.js';
 
 const db = createTestDb();
 const app = buildTestApp(db);
@@ -27,13 +27,13 @@ beforeAll(async () => {
 afterAll(() => db.$disconnect());
 
 const v = (path = '') => `/v1/vendor/restaurants/${restaurantId}${path}`;
-const searchAmala = () => request(app).get('/v1/search/food').query({ q: 'amala', lat: YABA.lat, lng: YABA.lng });
+const searchAmala = () => request(app).get('/v1/search/food').query({ q: 'amala', lat: ADA_HOME.lat, lng: ADA_HOME.lng });
 
 describe('restaurant onboarding', () => {
   it('vendor registers a restaurant; it starts pending and hidden', async () => {
     const res = await request(app).post('/v1/vendor/restaurants').set(bearer(vendor)).send({
       name: "Iya Basira's Amala", description: 'Amala, ewedu and gbegiri.', phone: '08051112222',
-      addressLine: '3 Montgomery Road', area: 'Yaba', city: 'Lagos', latitude: 6.5120, longitude: 3.3725, prepTimeMinutes: 20,
+      addressLine: '3 Akarigbo Street', area: 'Makun', city: 'Sagamu', latitude: 6.8425, longitude: 3.6484, prepTimeMinutes: 20,
     });
     expect(res.status).toBe(201);
     expect(res.body).toMatchObject({ verificationStatus: 'PENDING', isAcceptingOrders: false, slug: 'iya-basiras-amala' });

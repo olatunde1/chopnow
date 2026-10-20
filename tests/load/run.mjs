@@ -18,8 +18,8 @@ import WebSocket from 'ws';
 const API = 'http://localhost:4100';
 const SECONDS = Number(process.env.LOAD_SECONDS ?? 15);
 const SOCKETS = Number(process.env.LOAD_SOCKETS ?? 200);
-const YABA = { lat: 6.5175, lng: 3.3691 }; // the seeded customer's home address area
-const NEAR_MAMA = { latitude: 6.5115, longitude: 3.3701 }; // where the rider waits
+const ADA_HOME = { lat: 6.848, lng: 3.645 }; // the seeded customer's home address area
+const NEAR_MAMA = { latitude: 6.842, longitude: 3.646 }; // where the rider waits
 const seedSource = readFileSync(new URL('../../services/api/src/db/seed/dev-seed.ts', import.meta.url), 'utf8');
 const PASSWORD = process.env.SEED_USER_PASSWORD ?? /DEFAULT_SEED_PASSWORD = '([^']+)'/.exec(seedSource)[1];
 
@@ -105,7 +105,7 @@ try {
 
   // ───────── 1–3: HTTP throughput ─────────
   console.log('HTTP');
-  await cannon('food search (anonymous)', { path: `/v1/search/food?q=jollof&lat=${YABA.lat}&lng=${YABA.lng}` });
+  await cannon('food search (anonymous)', { path: `/v1/search/food?q=jollof&lat=${ADA_HOME.lat}&lng=${ADA_HOME.lng}` });
   await cannon('cart quote', { method: 'POST', path: '/v1/orders/quote', headers: { 'content-type': 'application/json', authorization: `Bearer ${ada}` }, body: JSON.stringify(cart('ONLINE', 2)) });
   // Online orders await payment, so they never reach the restaurant or dispatch: this measures placement alone.
   await cannon('order placement', {
@@ -147,7 +147,7 @@ try {
   for (let i = 0; i < SOCKETS; i++) {
     const reg = await call('POST', '/v1/auth/register', { email: `load-${run}-${i}@chopnow.test`, password: PASSWORD, fullName: `Load Test ${i}` });
     const token = reg.accessToken;
-    const addr = await call('POST', '/v1/me/addresses', { label: 'Home', line1: `${i + 1} Akoka Road`, area: 'Yaba', city: 'Lagos', latitude: address.latitude, longitude: address.longitude }, token);
+    const addr = await call('POST', '/v1/me/addresses', { label: 'Home', line1: `${i + 1} Sabo Road`, area: 'Makun', city: 'Sagamu', latitude: address.latitude, longitude: address.longitude }, token);
     customers.push({ token, addressId: addr.id });
   }
   const connectStart = performance.now();

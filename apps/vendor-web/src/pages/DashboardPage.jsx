@@ -48,7 +48,7 @@ export function DashboardPage() {
 
   return (
     <>
-      <PageHeader title={`Hello, ${restaurant.name}`} description="Today at a glance (Lagos time)." />
+      <PageHeader title={`Hello, ${restaurant.name}`} description="Today at a glance (Nigeria time)." />
 
       {restaurant.verificationStatus !== 'APPROVED' ? (
         <Card className="mb-5 flex flex-wrap items-center gap-3 border-warn bg-warn-soft">

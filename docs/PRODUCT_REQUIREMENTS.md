@@ -32,6 +32,7 @@ configurable at runtime from the admin dashboard, not hard-coded.
 - Proof of delivery: 4-digit PIN shown to the customer, entered by the rider. Operations can override with a recorded reason.
 - Customer cancellation: free while `PLACED`; after acceptance, only via support/operations.
 - Restaurant must accept within 10 minutes or the order is auto-rejected (and refunded if paid).
+- Pilot location: Sagamu, Ogun State (decided 2026-10-20; previously Yaba, Lagos). The app's fallback "pilot area" centre is about 6.840° N, 3.647° E, and the development seed places its test restaurants and customers in Makun, Sagamu. *(confirm the starting neighbourhood)* Dates and opening hours use Nigeria time (WAT, the `Africa/Lagos` timezone), shown to users as "Nigeria time".
 - Online orders not paid within 30 minutes are cancelled automatically, and any promo code is released; a payment that arrives later is refunded automatically. *(confirm)*
 - Live GPS tracking: out of scope for v1; status tracking only.
 

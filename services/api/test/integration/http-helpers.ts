@@ -18,8 +18,8 @@ export const LAGOS_NOON = new Date('2026-10-14T11:00:00Z');
 /** 03:00 Lagos the same night: every seeded restaurant is closed. */
 export const LAGOS_3AM = new Date('2026-10-15T02:00:00Z');
 
-/** Ada's seeded home address in Yaba, ~0.6 km from Mama Nkechi's and ~1.4 km from Bukka Republic. */
-export const YABA = { lat: 6.5175, lng: 3.3691 };
+/** Ada's seeded home address in Sagamu (Makun), ~0.6 km from Mama Nkechi's and ~1.4 km from Bukka Republic. */
+export const ADA_HOME = { lat: 6.848, lng: 3.645 };
 /** Abuja: far outside every delivery radius. */
 export const ABUJA = { lat: 9.0765, lng: 7.3986 };
 

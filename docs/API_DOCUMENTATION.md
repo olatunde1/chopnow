@@ -274,9 +274,9 @@ Browser portals send `X-ChopNow-Client: web` on login/register/refresh/logout an
 | `GET /ready` | Readiness (checks the database). 503 when it cannot be reached. |
 | `GET /v1/openapi.json` | OpenAPI 3.1 document. |
 
-## Example: search for jollof rice near Yaba
+## Example: search for jollof rice in Sagamu
 ```http
-GET /v1/search/food?q=jollof%20rice&lat=6.5175&lng=3.3691
+GET /v1/search/food?q=jollof%20rice&lat=6.848&lng=3.645
 ```
 ```json
 {

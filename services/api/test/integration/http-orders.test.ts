@@ -54,7 +54,7 @@ const jollofOrder = (over: Record<string, unknown> = {}) => ({
 });
 
 describe('quote: server-side pricing', () => {
-  it('prices Large jollof + chicken delivered to Yaba from current menu and rules', async () => {
+  it('prices Large jollof + chicken delivered to Makun from current menu and rules', async () => {
     const res = await request(app).post('/v1/orders/quote').set(bearer(ada)).send(jollofOrder());
     expect(res.status).toBe(200);
     expect(res.body).toMatchObject({

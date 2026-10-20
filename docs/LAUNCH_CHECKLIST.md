@@ -1,4 +1,4 @@
-# ChopNow Launch Checklist (Lagos pilot)
+# ChopNow Launch Checklist (Sagamu pilot)
 
 ChopNow is **not production-ready until every "Before launch" item is ticked** by the person named.
 "Done" items were verified in development on 2026-10-16; the evidence is listed so they can be re-checked.

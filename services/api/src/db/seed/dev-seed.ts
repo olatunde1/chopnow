@@ -36,8 +36,8 @@ export interface SeedSummary {
 
 const naira = (n: number) => Math.round(n * 100);
 
-/** Yaba, Lagos — pilot neighbourhood. */
-const AREA = { area: 'Yaba', city: 'Lagos', lat: 6.5095, lng: 3.3711 };
+/** Sagamu, Ogun State: pilot area (Makun). */
+const AREA = { area: 'Makun', city: 'Sagamu', lat: 6.84, lng: 3.647 };
 
 export async function assertSeedAllowed(db: Db, appEnv: string): Promise<void> {
   if (appEnv !== 'development' && appEnv !== 'test') {
@@ -105,7 +105,7 @@ export async function seedDevelopmentData(db: Db, opts: SeedOptions): Promise<Se
             name,
             slug,
             description: `[Test data] ${description}`,
-            addressLine: `${Math.floor(Math.random() * 90) + 10} Herbert Macaulay Way`,
+            addressLine: `${Math.floor(Math.random() * 90) + 10} Akarigbo Street`,
             area: AREA.area,
             city: AREA.city,
             latitude: AREA.lat + opts.dLat,
@@ -250,10 +250,10 @@ export async function seedDevelopmentData(db: Db, opts: SeedOptions): Promise<Se
       const ada = await user('ada', 'Ada Obi (test)', 'CUSTOMER', '+2348031110001');
       const tunde = await user('tunde', 'Tunde Bakare (test)', 'CUSTOMER', '+2348031110002');
       const adaAddr = await tx.address.create({
-        data: { userId: ada.id, label: 'Home', line1: '12 Akoka Road', area: AREA.area, city: AREA.city, landmark: 'Opposite the pharmacy', latitude: AREA.lat + 0.008, longitude: AREA.lng - 0.002, contactPhone: '+2348031110001' },
+        data: { userId: ada.id, label: 'Home', line1: '12 Sabo Road', area: AREA.area, city: AREA.city, landmark: 'Opposite the pharmacy', latitude: AREA.lat + 0.008, longitude: AREA.lng - 0.002, contactPhone: '+2348031110001' },
       });
       const tundeAddr = await tx.address.create({
-        data: { userId: tunde.id, label: 'Office', line1: '5 Commercial Avenue', area: AREA.area, city: AREA.city, latitude: AREA.lat - 0.003, longitude: AREA.lng + 0.006 },
+        data: { userId: tunde.id, label: 'Office', line1: '5 Market Road', area: AREA.area, city: AREA.city, latitude: AREA.lat - 0.003, longitude: AREA.lng + 0.006 },
       });
       await tx.customerProfile.create({ data: { userId: ada.id, defaultAddressId: adaAddr.id } });
       await tx.customerProfile.create({ data: { userId: tunde.id, defaultAddressId: tundeAddr.id } });

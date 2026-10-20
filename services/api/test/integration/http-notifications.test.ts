@@ -120,7 +120,7 @@ describe('notifications along the order journey', () => {
     expect(customer.find((x) => x.type === 'delivery.assigned')!.title).toBe('Chinedu will deliver your order');
     const everything = JSON.stringify(await db.notification.findMany({ where: { orderId: o.id } }));
     expectNoPin(everything, o.deliveryPin);
-    expect(everything).not.toMatch(/Akoka|\+234|@chopnow/);
+    expect(everything).not.toMatch(/Sabo Road|\+234|@chopnow/);
     await request(app).put('/v1/rider/availability').set(as('rider.core1')).send({ online: false });
   });
 
@@ -233,7 +233,7 @@ describe('realtime', () => {
     await waitFor(() => ops.messages.some((m) => m.type === 'order.updated' && m.orderId === o.id));
     expect(otherVendor.messages.filter((m) => m.type !== 'hello')).toEqual([]);
     expect(tunde.messages.filter((m) => m.type !== 'hello')).toEqual([]);
-    expect(JSON.stringify(ada.messages)).not.toMatch(new RegExp(`${o.deliveryPin}|Akoka|\\+234`));
+    expect(JSON.stringify(ada.messages)).not.toMatch(new RegExp(`${o.deliveryPin}|Sabo Road|\\+234`));
 
     // Polling again does not repeat events.
     const before = ada.messages.length;
